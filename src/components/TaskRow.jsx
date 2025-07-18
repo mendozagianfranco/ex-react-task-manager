@@ -8,7 +8,7 @@ export default memo(function TaskRow({ data }) {
             <tr className='task-row'>
                 <td>{title}</td>
                 <td className={`${status === 'To do' ? 'to-do' : status === 'Doing' ? 'doing' : 'done'}`}>{status}</td>
-                <td>{createdAt}</td>
+                <td>{new Date(createdAt).toLocaleDateString()}</td>
             </tr>
         </>
     );
