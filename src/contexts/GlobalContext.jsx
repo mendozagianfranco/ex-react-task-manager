@@ -1,16 +1,11 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import useTasks from '../hooks/useTasks';
 
 const TaskContext = createContext();
 
+
 function TaskProvider({ children }) {
-    const [tasks, setTasks] = useState([]);
-
-    useEffect(() => {
-        fetch(`${import.meta.env.VITE_URL_API}/tasks`)
-            .then(response => response.json())
-            .then(data => setTasks(data));
-    }, []);
-
+    const { tasks } = useTasks();
     return (
         <TaskContext.Provider value={{ tasks }}>
             {children}
@@ -18,9 +13,9 @@ function TaskProvider({ children }) {
     );
 }
 
-function useTask() {
+function useContextTasks() {
     const context = useContext(TaskContext);
     return context;
 }
 
-export { TaskProvider, useTask };
+export { TaskProvider, useContextTasks };

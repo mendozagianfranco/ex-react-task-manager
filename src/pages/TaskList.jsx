@@ -1,9 +1,9 @@
 import TaskRow from '../components/TaskRow';
-import { useTask } from '../contexts/GlobalContext';
+import { useContextTasks } from '../contexts/GlobalContext';
 
 export default function TaskList() {
 
-    const { tasks } = useTask();
+    const { tasks } = useContextTasks();
     return (
         <table className='task-table'>
             <thead>
