@@ -10,11 +10,13 @@ export default function AddTask() {
 
     const isValidTitle = useMemo(() => {
         const charsValid = title.split('').some(char => symbols.includes(char.toLowerCase()));
-        return charsValid && title.trim();
+        const isNotEmpty = title.trim().length > 0;
+        return !charsValid && isNotEmpty;
     }, [title]);
 
     function handleForm(e) {
         e.preventDefault();
+        if (!isValidTitle) return;
         const task = {
             title: title,
             description: description.current.value,
@@ -27,16 +29,16 @@ export default function AddTask() {
         <>
             <form onSubmit={handleForm}>
                 <label>
-                    <span>Nome Task</span>
+                    <p>Nome Task</p>
                     <input value={title} onChange={e => setTitle(e.target.value)} type="text" />
-                    {isValidTitle && <div>Il titolo contiene caratteri speciali o è vuoto</div>}
+                    {!isValidTitle && <div style={{ color: 'red' }}>Il titolo contiene caratteri speciali o è vuoto</div>}
                 </label>
                 <label>
-                    <span>Descrizione</span>
+                    <p>Descrizione</p>
                     <input type="text" ref={description} />
                 </label>
                 <label>
-                    <span>Stato</span>
+                    <p>Stato</p>
                     <select ref={status}>
                         <option value="To do">To do</option>
                         <option value="Doing">Doing</option>
