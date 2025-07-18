@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.task-table {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.task-header,
+.task-row {
+    display: flex;
+    justify-content: flex-start;
+    gap: 16px;
+}
+
+.task-header {
+    margin: 15px 0;
+}
+
+.task-header>*,
+.task-row>* {
+    width: 300px;
+}
+
+.to-do {
+    color: red;
+}
+
+.doing {
+    color: rgb(216, 216, 0);
+}
+
+.done {
+    color: green;
+}
