@@ -1,4 +1,6 @@
 import { useMemo, useRef, useState } from 'react';
+import { useContextTasks } from '../contexts/GlobalContext';
+
 
 
 const symbols = "!@#$%^&*()-_=+[]{}|;:\'\",.<>?/`~";
@@ -7,6 +9,7 @@ export default function AddTask() {
     const [title, setTitle] = useState('');
     const description = useRef();
     const status = useRef();
+    const { addTask } = useContextTasks();
 
     const isValidTitle = useMemo(() => {
         const charsValid = title.split('').some(char => symbols.includes(char.toLowerCase()));
@@ -22,7 +25,15 @@ export default function AddTask() {
             description: description.current.value,
             status: status.current.value
         };
-        console.log(task);
+        try {
+            addTask(task);
+            alert('Task create con successo');
+            setTitle('');
+            description.current.value = '';
+            status.current.value = '';
+        } catch (error) {
+            alert(error);
+        }
     }
 
     return (

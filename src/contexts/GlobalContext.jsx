@@ -5,9 +5,9 @@ const TaskContext = createContext();
 
 
 function TaskProvider({ children }) {
-    const { tasks } = useTasks();
+    const taskData = useTasks();
     return (
-        <TaskContext.Provider value={{ tasks }}>
+        <TaskContext.Provider value={{ ...taskData }}>
             {children}
         </TaskContext.Provider>
     );
