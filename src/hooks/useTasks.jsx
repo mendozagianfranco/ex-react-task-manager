@@ -29,7 +29,20 @@ export default function useTasks() {
 
 
     };
-    const removeTask = () => { };
+    const removeTask = (taskId) => {
+
+        fetch(`${import.meta.env.VITE_URL_API}/tasks/${taskId}`, {
+            method: 'DELETE',
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    setTasks(prev => prev.filter(task => task.id !== taskId));
+                } else {
+                    throw new Error(data.message);
+                }
+            });
+    };
     const updateTask = () => { };
 
     return { tasks, addTask, removeTask, updateTask };
