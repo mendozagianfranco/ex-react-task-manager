@@ -43,7 +43,23 @@ export default function useTasks() {
                 }
             });
     };
-    const updateTask = () => { };
+    const updateTask = (updatedTask) => {
+        fetch(`${import.meta.env.VITE_URL_API}/tasks/${updatedTask.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedTask)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    setTasks(prev => prev.map(t => t.id === data.task.id ? data.task : t));
+                } else {
+                    throw new Error(data.message);
+                }
+            }).catch(error => console.error(error));
+    };
 
     return { tasks, addTask, removeTask, updateTask };
 }
